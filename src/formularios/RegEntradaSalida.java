@@ -48,6 +48,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.Calendar;
 import javax.swing.JFrame;
 
 
@@ -153,7 +154,7 @@ public class RegEntradaSalida extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setFont(new java.awt.Font("Tahoma", 1, 14));
+        jTable1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null}
@@ -202,10 +203,10 @@ public class RegEntradaSalida extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(103, 103, 103)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
                 .addGap(114, 114, 114))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -217,15 +218,15 @@ public class RegEntradaSalida extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(HoraActual, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                                    .addComponent(FechaActual, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)))
+                                    .addComponent(HoraActual, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                                    .addComponent(FechaActual, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblImagenHuella, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))))
+                                .addComponent(lblImagenHuella, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                 .addGap(179, 179, 179))
         );
         layout.setVerticalGroup(
@@ -243,14 +244,14 @@ public class RegEntradaSalida extends javax.swing.JFrame {
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
+                        .addGap(22, 22, 22))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(FechaActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
                         .addComponent(HoraActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                         .addComponent(lblImagenHuella, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(169, 169, 169))))
+                        .addGap(171, 171, 171))))
         );
 
         pack();
@@ -362,7 +363,7 @@ protected void Iniciar(){
     identificarHuella();
 
      }catch (DPFPImageQualityException ex) {
-     System.err.println("Error: "+ex.getMessage());
+     System.err.println("Vuelva a introducir su huella ya que no se pudo capturar");
      }
 
      finally {
@@ -374,10 +375,6 @@ protected void Iniciar(){
 	    stop();
             setTemplate(Reclutador.getTemplate());
 	    EnviarTexto("La Plantilla de la Huella ha Sido Creada, ya puede Verificarla o Identificarla");
-	 //   btnIdentificar.setEnabled(false);
-           // btnVerificar.setEnabled(false);
-           // btnGuardar.setEnabled(true);
-            //btnGuardar.grabFocus();
             break;
 
 	    case TEMPLATE_STATUS_FAILED: // informe de fallas y reiniciar la captura de huellas
@@ -437,13 +434,14 @@ ConexionBD con=new ConexionBD();
        //Establece los valores para la sentencia SQL
        Connection c=con.conectar();
        //Obtiene todas las huellas de la bd
-       PreparedStatement identificarStmt = c.prepareStatement("SELECT nombre,huella FROM personal");
+       PreparedStatement identificarStmt = c.prepareStatement("SELECT nombre,huella,clave FROM personal");
        ResultSet rs = identificarStmt.executeQuery();
        //Si se encuentra el nombre en la base de datos
        while(rs.next()){
        //Lee la plantilla de la base de datos
        byte templateBuffer[] = rs.getBytes("huella");
        String nombre=rs.getString("nombre");
+       String clave=rs.getString("clave");
        //Crea una nueva plantilla a partir de la guardada en la base de datos
        DPFPTemplate referenceTemplate = DPFPGlobal.getTemplateFactory().createTemplate(templateBuffer);
        //Envia la plantilla creada al objeto contendor de Template del componente de huella digital
@@ -456,9 +454,28 @@ ConexionBD con=new ConexionBD();
        //e indica el nombre de la persona que coincidió.
        if (result.isVerified()){
        //crea la imagen de los datos guardado de las huellas guardadas en la base de datos
-       JOptionPane.showMessageDialog(null, "Las huella capturada es de "+nombre,"Verificacion de Huella", JOptionPane.INFORMATION_MESSAGE);
+       //JOptionPane.showMessageDialog(null, "Las huella capturada es de "+nombre,"Verificacion de Huella", JOptionPane.INFORMATION_MESSAGE);
+                    Date fecha = new Date(); //aqui tu fecha;
+                    SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+                    String fechaa=dt.format(fecha);                   
+                    
+                    jTable1.setValueAt( fechaa ,0 ,0);
+                    dt = new SimpleDateFormat("hh:mm:ss");
+                    String hora=dt.format(fecha);
+                    jTable1.setValueAt( hora ,0 ,1);
+                    jTable1.setValueAt( nombre ,0 ,2);
+        PreparedStatement consultaStmt = c.prepareStatement("SELECT elunes,slunes FROM horario where clave_trabajador=?");
+        consultaStmt.setString(1,clave);
+        ResultSet res = consultaStmt.executeQuery();
+        while(res.next()){
+            String edia=res.getString("elunes");
+            String sdia=res.getString("slunes");
+            jTable1.setValueAt( edia,0 ,3);
+            jTable1.setValueAt( sdia ,0 ,4);
+        }
+
        return;
-                               }
+       }
        }
        //Si no encuentra alguna huella correspondiente al nombre lo indica con un mensaje
        JOptionPane.showMessageDialog(null, "No existe ningún registro que coincida con la huella", "Verificacion de Huella", JOptionPane.ERROR_MESSAGE);

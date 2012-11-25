@@ -90,7 +90,7 @@
               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="183" max="32767" attributes="0"/>
+              <EmptySpace pref="187" max="32767" attributes="0"/>
               <Component id="jLabel1" min="-2" pref="206" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="176" max="-2" attributes="0"/>
           </Group>
@@ -225,16 +225,16 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="11">
-            <StringItem index="0" value="07-00"/>
-            <StringItem index="1" value="08-00"/>
-            <StringItem index="2" value="09-00"/>
-            <StringItem index="3" value="10-00"/>
-            <StringItem index="4" value="11-00"/>
-            <StringItem index="5" value="12-00"/>
-            <StringItem index="6" value="13-00"/>
-            <StringItem index="7" value="14-00"/>
-            <StringItem index="8" value="15-00"/>
-            <StringItem index="9" value="16-00"/>
+            <StringItem index="0" value="07:00"/>
+            <StringItem index="1" value="08:00"/>
+            <StringItem index="2" value="09:00"/>
+            <StringItem index="3" value="10:00"/>
+            <StringItem index="4" value="11:00"/>
+            <StringItem index="5" value="12:00"/>
+            <StringItem index="6" value="13:00"/>
+            <StringItem index="7" value="14:00"/>
+            <StringItem index="8" value="15:00"/>
+            <StringItem index="9" value="16:00"/>
             <StringItem index="10" value=" "/>
           </StringArray>
         </Property>
