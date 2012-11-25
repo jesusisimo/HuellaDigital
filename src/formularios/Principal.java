@@ -127,10 +127,9 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSistemaActionPerformed
         // TODO add your handling code here:
-        SistemaPanel form = new SistemaPanel();
+        RegEntradaSalida form = new RegEntradaSalida();
         form.setVisible(true);
     }//GEN-LAST:event_btnSistemaActionPerformed
-
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         // TODO add your handling code here:
         System.exit(0);

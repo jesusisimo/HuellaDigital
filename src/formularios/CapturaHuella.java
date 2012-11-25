@@ -499,11 +499,9 @@ ConexionBD con=new ConexionBD();
        DPFPTemplate referenceTemplate = DPFPGlobal.getTemplateFactory().createTemplate(templateBuffer);
        //Envia la plantilla creada al objeto contendor de Template del componente de huella digital
        setTemplate(referenceTemplate);
-
        // Compara las caracteriticas de la huella recientemente capturda con la
        // alguna plantilla guardada en la base de datos que coincide con ese tipo
        DPFPVerificationResult result = Verificador.verify(featuresverificacion, getTemplate());
-
        //compara las plantilas (actual vs bd)
        //Si encuentra correspondencia dibuja el mapa
        //e indica el nombre de la persona que coincidió.
@@ -522,9 +520,6 @@ ConexionBD con=new ConexionBD();
        }finally{
        con.desconectar();
        }
-
-
-
    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
