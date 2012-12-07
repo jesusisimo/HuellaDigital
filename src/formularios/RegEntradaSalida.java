@@ -11,6 +11,7 @@
 package formularios;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import com.digitalpersona.onetouch.DPFPDataPurpose;
@@ -48,7 +49,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 import javax.swing.JFrame;
 
 
@@ -356,37 +359,16 @@ protected void Iniciar(){
      try{
      System.out.println("Las Caracteristicas de la Huella han sido creada");
      Reclutador.addFeatures(featuresinscripcion);// Agregar las caracteristicas de la huella a la plantilla a crear
-
      // Dibuja la huella dactilar capturada.
      Image image=CrearImagenHuella(sample);
      DibujarHuella(image);
     identificarHuella();
-
+    Reclutador.clear();
+    stop();
+    start();
      }catch (DPFPImageQualityException ex) {
-     System.err.println("Vuelva a introducir su huella ya que no se pudo capturar");
+     System.err.println("Error --> correr en circulos");
      }
-
-     finally {
-     //EstadoHuellas();
-     // Comprueba si la plantilla se ha creado.
-	switch(Reclutador.getTemplateStatus())
-        {
-            case TEMPLATE_STATUS_READY:	// informe de éxito y detiene  la captura de huellas
-	    stop();
-            setTemplate(Reclutador.getTemplate());
-	    EnviarTexto("La Plantilla de la Huella ha Sido Creada, ya puede Verificarla o Identificarla");
-            break;
-
-	    case TEMPLATE_STATUS_FAILED: // informe de fallas y reiniciar la captura de huellas
-	    Reclutador.clear();
-            stop();
-	    //EstadoHuellas();
-	    setTemplate(null);
-	    //JOptionPane.showMessageDialog(CapturaHuella.this, "La Plantilla de la Huella no pudo ser creada, Repita el Proceso", "Inscripcion de Huellas Dactilares", JOptionPane.ERROR_MESSAGE);
-	    start();
-	    break;
-	}
-	     }
 }
  public  DPFPFeatureSet extraerCaracteristicas(DPFPSample sample, DPFPDataPurpose purpose){
      DPFPFeatureExtraction extractor = DPFPGlobal.getFeatureExtractionFactory().createFeatureExtraction();
@@ -422,9 +404,8 @@ public  void stop(){
     }
 public  void start(){
 	Lector.startCapture();
-	EnviarTexto("Utilizando el Lector de Huella Dactilar ");
+	//EnviarTexto("Utilizando el Lector de Huella Dactilar ");
 }
-//Identifica a una persona registrada por medio de su huella digital
 ConexionBD con=new ConexionBD();
  /**
   * Identifica a una persona registrada por medio de su huella digital
@@ -453,27 +434,17 @@ ConexionBD con=new ConexionBD();
        //Si encuentra correspondencia dibuja el mapa
        //e indica el nombre de la persona que coincidió.
        if (result.isVerified()){
-       //crea la imagen de los datos guardado de las huellas guardadas en la base de datos
-       //JOptionPane.showMessageDialog(null, "Las huella capturada es de "+nombre,"Verificacion de Huella", JOptionPane.INFORMATION_MESSAGE);
+       
                     Date fecha = new Date(); //aqui tu fecha;
                     SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
-                    String fechaa=dt.format(fecha);                   
-                    
+                    String fechaa=dt.format(fecha);
                     jTable1.setValueAt( fechaa ,0 ,0);
                     dt = new SimpleDateFormat("hh:mm:ss");
                     String hora=dt.format(fecha);
                     jTable1.setValueAt( hora ,0 ,1);
                     jTable1.setValueAt( nombre ,0 ,2);
-        PreparedStatement consultaStmt = c.prepareStatement("SELECT elunes,slunes FROM horario where clave_trabajador=?");
-        consultaStmt.setString(1,clave);
-        ResultSet res = consultaStmt.executeQuery();
-        while(res.next()){
-            String edia=res.getString("elunes");
-            String sdia=res.getString("slunes");
-            jTable1.setValueAt( edia,0 ,3);
-            jTable1.setValueAt( sdia ,0 ,4);
-        }
-
+                    consultaES(clave);
+        
        return;
        }
        }
@@ -487,6 +458,81 @@ ConexionBD con=new ConexionBD();
        con.desconectar();
        }
    }
+ public void consultaES(String clave){
+     Connection ch=con.conectar();
+     int hactual,hbase,mactual,mbase;   
+     String hora1=null;
+     Date dias = new Date(); //consultamos en que dia nos encontramos;
+     SimpleDateFormat dtdia=new SimpleDateFormat("EEEE");
+     String fechaaa=dtdia.format(dias);
+     String diain="elunes";//modificamoes esta parte
+     String diaout="slunes";
+     //------------------------------------------------------------
+     try {
+                PreparedStatement consultah = ch.prepareStatement("SELECT *FROM horario where clave_trabajador=?");
+                consultah.setString(1,clave);
+                ResultSet res = consultah.executeQuery();
+                while (res.next()) {
+                //si se encuentran datos lo insertamos en la tabla
+                    String edia=res.getString(diain);
+                    String sdia=res.getString(diaout);
+
+                    Date hora=new Date();
+                    SimpleDateFormat dt = new SimpleDateFormat("HH:mm");
+                    String horatabla=sdia;
+                try {
+                    Date htabla = dt.parse(horatabla);
+                } catch (ParseException ex) {
+                    Logger.getLogger(RegEntradaSalida.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                    Date htabla;
+                try {
+                    htabla = dt.parse(horatabla);
+                    hora1=dt.format(htabla);
+                    System.err.println(hora1);//conversion a tipo date de la horas de entrada en el horario
+                } catch (ParseException ex) {
+                    Logger.getLogger(RegEntradaSalida.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                    String hora2=dt.format(hora);//hora actual de entrada
+                    System.err.println(hora2);
+                    //convertir las horas a entero para compararlas 
+                    hactual=Integer.parseInt(hora2.substring(0, 2));
+                    hbase=Integer.parseInt(hora1.substring(0, 2));
+                    //mactual=
+                    System.err.println(hactual+hbase);
+                    //hbase=
+                    //mbase=
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    jTable1.setValueAt( edia,0 ,3);
+                    jTable1.setValueAt( sdia ,0 ,4);
+                    
+                    
+                                    }
+            } catch (SQLException ex) {
+                System.err.println("Error al identificar huella dactilar."+ex.getMessage());
+            }
+     //----------------------------------------------------------------
+
+
+
+
+
+
+  con.desconectar();
+    }
+
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField FechaActual;

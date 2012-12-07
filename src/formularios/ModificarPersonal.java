@@ -26,6 +26,7 @@ public class ModificarPersonal extends javax.swing.JFrame {
     /** Creates new form ModificarPersonal */
     public ModificarPersonal() {
         initComponents();
+        //camp_clave.;
     }
 
     /** This method is called from within the constructor to
@@ -305,8 +306,10 @@ public class ModificarPersonal extends javax.swing.JFrame {
     PreparedStatement verificarStmt = c.prepareStatement("SELECT *FROM personal WHERE clave=?");
     verificarStmt.setString(1,camp_clave.getText());
     ResultSet rs = verificarStmt.executeQuery();
-    //Si se encuentra el nombre en la base de datos
-    if (rs.next()){
+    //System.err.println(rs.next());
+    //rs.next()==true
+    //rs.next()==false
+    if (rs.next()==true){//Si se encuentra la clave en la base de datos
     //Lee la plantilla de la base de datos
     String nombre= rs.getString("nombre");
     String appaterno= rs.getString("appaterno");
@@ -327,7 +330,7 @@ public class ModificarPersonal extends javax.swing.JFrame {
     camp_sexo.setText(sexo);
    
     } else {
-
+            System.err.println("No se encontraron registros con esta clave.");
     }
     } catch (SQLException e) {
     //Si ocurre un error lo indica en la consola

@@ -101,31 +101,31 @@ public class RegistroHorario extends javax.swing.JFrame {
         inLunes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", " " }));
         inLunes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        inMartes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-00", "08-00", "09-00", "10-00", "11-00", "12-00", "13-00", "14-00", "15-00", "16-00", " " }));
+        inMartes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", " " }));
         inMartes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        inMiercoles.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-00", "08-00", "09-00", "10-00", "11-00", "12-00", "13-00", "14-00", "15-00", "16-00", " " }));
+        inMiercoles.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00" }));
         inMiercoles.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        inJueves.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-00", "08-00", "09-00", "10-00", "11-00", "12-00", "13-00", "14-00", "15-00", "16-00", " " }));
+        inJueves.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00" }));
         inJueves.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        inViernes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-00", "08-00", "09-00", "10-00", "11-00", "12-00", "13-00", "14-00", "15-00", "16-00", " " }));
+        inViernes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00" }));
         inViernes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        outLunes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-00", "08-00", "09-00", "10-00", "11-00", "12-00", "13-00", "14-00", "15-00", "16-00", " " }));
+        outLunes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", " " }));
         outLunes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        outMartes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-00", "08-00", "09-00", "10-00", "11-00", "12-00", "13-00", "14-00", "15-00", "16-00", " " }));
+        outMartes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00" }));
         outMartes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        outMiercoles.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-00", "08-00", "09-00", "10-00", "11-00", "12-00", "13-00", "14-00", "15-00", "16-00", " " }));
+        outMiercoles.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00" }));
         outMiercoles.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        outJueves.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-00", "08-00", "09-00", "10-00", "11-00", "12-00", "13-00", "14-00", "15-00", "16-00", " " }));
+        outJueves.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00" }));
         outJueves.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        outViernes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-00", "08-00", "09-00", "10-00", "11-00", "12-00", "13-00", "14-00", "15-00", "16-00", " " }));
+        outViernes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00" }));
         outViernes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -184,7 +184,7 @@ public class RegistroHorario extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(187, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(176, 176, 176))
+                .addGap(394, 394, 394))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,7 +273,7 @@ public class RegistroHorario extends javax.swing.JFrame {
      java.sql.Statement stmt = c.createStatement();//-insercion delusuario a la base de datos
      String clave = JOptionPane.showInputDialog("ingresa la clave del trabajador");
      //stmt.executeQuery("INSERT INTO personal(nombre, huella, clave, appaterno, apmaterno, telefono, direccion, sexo) values('"+nombre+"','"+null+"','"+clave+"','"+appaterno+"','"+apmaterno+"','"+telefono+"','"+direccion+"','"+sexo+"');");
-     stmt.executeQuery("INSERT INTO horario(clave_trabajador,elunes,emartes,emiercoles,ejueves,eviernes,slunes,smartes,smiercoles,sjueves,sviernes) values('"+clave+"','"+elunes+"','"+emartes+"','"+emiercoles+"','"+ejueves+"','"+eviernes+"','"+slunes+"','"+smartes+"','"+smiercoles+"','"+sjueves+"','"+sviernes+"');");
+     stmt.executeQuery("INSERT INTO horario(clave_trabajador,elunes,emartes,emiércoles,ejueves,eviernes,slunes,smartes,smiércoles,sjueves,sviernes) values('"+clave+"','"+elunes+"','"+emartes+"','"+emiercoles+"','"+ejueves+"','"+eviernes+"','"+slunes+"','"+smartes+"','"+smiercoles+"','"+sjueves+"','"+sviernes+"');");
      stmt.execute("END");
      stmt.close();
      JOptionPane.showMessageDialog(null,"Datos del personal guardados");
