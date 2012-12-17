@@ -12,6 +12,7 @@
 package formularios;
 
 import BD.ConexionBD;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -59,6 +60,7 @@ public class ModificarPersonal extends javax.swing.JFrame {
         btnCargarHuella = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        mensajes = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,6 +68,7 @@ public class ModificarPersonal extends javax.swing.JFrame {
 
         jLabel8.setText("Telefono");
 
+        btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Close.png"))); // NOI18N
         btnCerrar.setText("Cerrar");
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,6 +78,7 @@ public class ModificarPersonal extends javax.swing.JFrame {
 
         camp_nombre.setEditable(false);
 
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Stop.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,13 +86,18 @@ public class ModificarPersonal extends javax.swing.JFrame {
             }
         });
 
+        camp_clave.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                camp_claveCaretUpdate(evt);
+            }
+        });
         camp_clave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 camp_claveActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Lucida Console", 1, 18));
+        jLabel1.setFont(new java.awt.Font("Lucida Console", 1, 18)); // NOI18N
         jLabel1.setText("Modificacion de Personal");
 
         jLabel6.setText("Sexo");
@@ -113,14 +122,20 @@ public class ModificarPersonal extends javax.swing.JFrame {
 
         jLabel3.setText("Nombre");
 
-        btnCargarHuella.setText("Cargar...");
+        btnCargarHuella.setText("Cargar Nueva Huella");
         btnCargarHuella.setEnabled(false);
+        btnCargarHuella.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnCargarHuellaMouseMoved(evt);
+            }
+        });
         btnCargarHuella.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCargarHuellaActionPerformed(evt);
             }
         });
 
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Floppy.png"))); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.setEnabled(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +144,7 @@ public class ModificarPersonal extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Search.png"))); // NOI18N
         jButton1.setText("Buscar");
         jButton1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -146,48 +162,51 @@ public class ModificarPersonal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel7)
-                                .addComponent(jLabel8)
-                                .addComponent(jLabel9))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addComponent(btnGuardar)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(camp_clave, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                    .addComponent(camp_nombre)
-                                    .addComponent(camp_appaterno)
-                                    .addComponent(camp_apmaterno)
-                                    .addComponent(camp_sexo)
-                                    .addComponent(camp_direccion, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                                    .addComponent(camp_telefono))
+                                .addGap(41, 41, 41)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9)
+                                    .addComponent(btnGuardar))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(60, 60, 60)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnCargarHuella)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnCancelar)
-                                        .addGap(41, 41, 41)
-                                        .addComponent(btnCerrar)))))))
-                .addGap(20, 20, 20))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(camp_clave, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                            .addComponent(camp_nombre)
+                                            .addComponent(camp_appaterno)
+                                            .addComponent(camp_apmaterno)
+                                            .addComponent(camp_sexo)
+                                            .addComponent(camp_direccion, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                                            .addComponent(camp_telefono)
+                                            .addComponent(btnCargarHuella, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton1)
+                                        .addGap(28, 28, 28))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(48, 48, 48)
+                                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                                        .addComponent(btnCerrar)
+                                        .addGap(1, 1, 1)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(mensajes, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,8 +228,8 @@ public class ModificarPersonal extends javax.swing.JFrame {
                     .addComponent(camp_appaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(camp_apmaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(camp_apmaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -227,10 +246,12 @@ public class ModificarPersonal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(btnCargarHuella))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addComponent(mensajes, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
                     .addComponent(btnCancelar)
+                    .addComponent(btnGuardar)
                     .addComponent(btnCerrar))
                 .addGap(19, 19, 19))
         );
@@ -253,6 +274,9 @@ public class ModificarPersonal extends javax.swing.JFrame {
         camp_sexo.setText(null);
         camp_telefono.setText(null);
         camp_direccion.setText(null);
+        mensajes.setText(null);
+        btnGuardar.setEnabled(false);
+        btnCargarHuella.setEnabled(false);
 }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void camp_claveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camp_claveActionPerformed
@@ -272,13 +296,38 @@ public class ModificarPersonal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Consulta();
+        camp_nombre.setText(null);
+        camp_sexo.setText(null);
+        camp_appaterno.setText(null);
+        camp_apmaterno.setText(null);
+        camp_telefono.setText(null);
+        camp_direccion.setText(null);
+
+        String clv=camp_clave.getText();
+        if(clv.length()!=8){
+        mensajes.setText("Verifique la clave debe de ser de 8 caracteres.");
+        camp_clave.setForeground(Color.red);
+        btnGuardar.setEnabled(false);
+        }
+        else{Consulta();
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseMoved
        //Desplega mensaje al pasarle el mouse
        jButton1.setToolTipText("Ingresa una clave para buscar");
     }//GEN-LAST:event_jButton1MouseMoved
+
+    private void btnCargarHuellaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCargarHuellaMouseMoved
+        // TODO add your handling code here:
+        btnCargarHuella.setToolTipText("Presione para modificar la huella");
+    }//GEN-LAST:event_btnCargarHuellaMouseMoved
+
+    private void camp_claveCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_camp_claveCaretUpdate
+        // TODO add your handling code here:
+        camp_clave.setForeground(Color.black);
+    }//GEN-LAST:event_camp_claveCaretUpdate
 
     /**
     * @param args the command line arguments
@@ -290,13 +339,6 @@ public class ModificarPersonal extends javax.swing.JFrame {
             }
         });
     }
-
-
-
-
-
-
-
     ConexionBD con=new ConexionBD();
      public void Consulta() {
     try {
@@ -328,13 +370,22 @@ public class ModificarPersonal extends javax.swing.JFrame {
     camp_telefono.setText(telefono);
     camp_direccion.setText(direccion);
     camp_sexo.setText(sexo);
-   
+   mensajes.setText("Solo esta permitido modificar los campos activos.");
     } else {
-            System.err.println("No se encontraron registros con esta clave.");
+        camp_nombre.setText(null);
+    camp_appaterno.setText(null);
+    camp_apmaterno.setText(null);
+    camp_telefono.setText(null);
+    camp_direccion.setText(null);
+    camp_sexo.setText(null);
+            mensajes.setText("No se encontraron registros con esta clave.");
+            btnGuardar.setEnabled(false);
+        btnCargarHuella.setEnabled(false);
+
     }
     } catch (SQLException e) {
     //Si ocurre un error lo indica en la consola
-    System.err.println("Error al verificar los datos del personal.");
+    mensajes.setText("Error al modificar los datos del personal.");
     }finally{
        con.desconectar();
     }
@@ -353,10 +404,19 @@ public void Guardar() {
         updatePersonal.setString(3,camp_clave.getText());
         updatePersonal.execute();
         updatePersonal.close();
-    
+        mensajes.setText("Los cambios han sido guardados correctamente");
+        camp_clave.setText(null);
+        camp_nombre.setText(null);
+        camp_appaterno.setText(null);
+        camp_apmaterno.setText(null);
+        camp_telefono.setText(null);
+        camp_direccion.setText(null);
+        camp_sexo.setText(null);
+        btnCargarHuella.setEnabled(false);
+        btnGuardar.setEnabled(false);
     } catch (SQLException e) {
     //Si ocurre un error lo indica en la consola
-    System.err.println("Error al verificar los datos del personal.");
+    mensajes.setText("Error al verificar los datos del personal.");
     }finally{
        con.desconectar();
     }
@@ -383,6 +443,7 @@ public void Guardar() {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField mensajes;
     // End of variables declaration//GEN-END:variables
 
 }

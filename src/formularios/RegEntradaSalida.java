@@ -36,23 +36,15 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import BD.ConexionBD;
 import com.digitalpersona.onetouch.verification.DPFPVerificationResult;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-import javax.swing.JFrame;
+
 
 
 /**
@@ -76,8 +68,6 @@ public class RegEntradaSalida extends javax.swing.JFrame {
                   }
                });
                 t.start();
-
-      logo.setVisible(false);
     }
 
     /** This method is called from within the constructor to
@@ -98,30 +88,38 @@ public class RegEntradaSalida extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        logo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         lblImagenHuella = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(51, 153, 255));
+        setForeground(javax.swing.UIManager.getDefaults().getColor("textHighlight"));
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18));
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("SISTEMA DE CONTROL DE ENTRADA/SALIDA");
+        jLabel1.setText("SISTEMA DE CONTROL DE ENTRADA DE PERSONAL");
         jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel1.setOpaque(true);
 
-        FechaActual.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        FechaActual.setBorder(null);
         FechaActual.setEditable(false);
         FechaActual.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
-        FechaActual.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        FechaActual.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         FechaActual.setFont(new java.awt.Font("Tahoma", 1, 24));
 
-        HoraActual.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        HoraActual.setBorder(null);
         HoraActual.setEditable(false);
         HoraActual.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         HoraActual.setFont(new java.awt.Font("Tahoma", 1, 24));
@@ -132,32 +130,24 @@ public class RegEntradaSalida extends javax.swing.JFrame {
         });
 
         Notificaciones.setColumns(20);
+        Notificaciones.setFont(new java.awt.Font("Segoe UI", 1, 18));
         Notificaciones.setRows(5);
         jScrollPane2.setViewportView(Notificaciones);
 
         jLabel2.setText("jLabel2");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Announcement.png"))); // NOI18N
         jLabel3.setText("Notificaciones");
         jLabel3.setToolTipText("");
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         jPanel1.setPreferredSize(new java.awt.Dimension(481, 438));
 
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Dgeta-gif.gif"))); // NOI18N
-        logo.setAutoscrolls(true);
-        logo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        logo.setFocusPainted(false);
-        logo.setFocusable(false);
-        logo.setRequestFocusEnabled(false);
-        logo.setRolloverEnabled(false);
-        logo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoActionPerformed(evt);
-            }
-        });
-
-        jTable1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTable1.setBackground(new java.awt.Color(64, 64, 64));
+        jTable1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTable1.setFont(new java.awt.Font("Tahoma", 1, 18));
+        jTable1.setForeground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null}
@@ -174,87 +164,87 @@ public class RegEntradaSalida extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setRowHeight(30);
+        jTable1.setRowHeight(80);
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 481, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(14, 14, 14)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(15, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(logo, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(100, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(126, 126, 126)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        lblImagenHuella.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logo.jpg"))); // NOI18N
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.jpg"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
-                .addGap(114, 114, 114))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                        .addGap(529, 529, 529))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(HoraActual, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                                    .addComponent(FechaActual, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblImagenHuella, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)))))
-                .addContainerGap())
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(FechaActual, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                                        .addGap(145, 145, 145)
+                                        .addComponent(HoraActual, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(lblImagenHuella, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(67, 67, 67))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 597, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                .addGap(179, 179, 179))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 814, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(HoraActual, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                            .addComponent(FechaActual, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(FechaActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(HoraActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                        .addComponent(lblImagenHuella, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(171, 171, 171))))
+                        .addComponent(lblImagenHuella, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(49, 49, 49)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
         );
 
         pack();
@@ -264,19 +254,65 @@ public class RegEntradaSalida extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_HoraActualActionPerformed
 
-    private void logoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_logoActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        Connection c=con.conectar();
+        PreparedStatement actualiza_asistencia;
+        try {
+            actualiza_asistencia = c.prepareStatement("UPDATE personal SET asistencia=false WHERE clave!='00000000';");
+             actualiza_asistencia.executeQuery();
+        } catch (SQLException ex) {
+
+        }
+
         Iniciar();
         start();
         //EstadoHuellas();
     }//GEN-LAST:event_formWindowOpened
-private void formWindowClosing(java.awt.event.WindowEvent evt) {
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
         stop();
+            try {
+    //Establece los valores para la sentencia SQL
+    Connection c=con.conectar();
+    Date fecha=new Date();
+                    SimpleDateFormat fech = new SimpleDateFormat("dd/MM/yyyy");//creamos la fecha actual que se guardara en la base de datos
+                    String fechaa=fech.format(fecha);
+    //Obtiene la plantilla correspondiente a la persona indicada
+    PreparedStatement verificarStmt = c.prepareStatement("SELECT asistencia,clave FROM personal");
+    ResultSet rs = verificarStmt.executeQuery();
+
+    if (rs.next()==true){//Si se encuentra la clave en la base de datos
+    //Lee la plantilla de la base de datos
+    
+    do{
+        String asistencia=rs.getString("asistencia");
+        String clave=rs.getString("clave");
+        if(asistencia.equals("f")){
+        try{
+         PreparedStatement insertar = c.prepareStatement("insert into historial(clave_trabajador,fecha,estado) values('"+clave+"','"+fechaa+"','Falta');");
+         insertar.executeQuery();   
+            }catch (SQLException e) {
     }
+        }
+
+    }while(rs.next());
+
+    } else {
+
+    }
+    } catch (SQLException e) {
+    //Si ocurre un error lo indica en la consola
+
+    }finally{
+       con.desconectar();
+    }
+
+
+
+    }//GEN-LAST:event_formWindowClosing
+
 //Varible que permite iniciar el dispositivo de lector de huella conectado
 // con sus distintos metodos.
 private DPFPCapture Lector = DPFPGlobal.getCaptureFactory().createCapture();
@@ -310,7 +346,7 @@ protected void Iniciar(){
    Lector.addDataListener(new DPFPDataAdapter() {
     @Override public void dataAcquired(final DPFPDataEvent e) {
     SwingUtilities.invokeLater(new Runnable() {	public void run() {
-    EnviarTexto("La Huella Digital ha sido Capturada");
+    //EnviarTexto("La Huella Digital ha sido Capturada");
     ProcesarCaptura(e.getSample());
     }});}
    });
@@ -318,7 +354,7 @@ protected void Iniciar(){
    Lector.addReaderStatusListener(new DPFPReaderStatusAdapter() {
     @Override public void readerConnected(final DPFPReaderStatusEvent e) {
     SwingUtilities.invokeLater(new Runnable() {	public void run() {
-    EnviarTexto("El Sensor de Huella Digital esta Activado o Conectado");
+    //EnviarTexto("El Sensor de Huella Digital esta Activado o Conectado");
     }});}
     @Override public void readerDisconnected(final DPFPReaderStatusEvent e) {
     SwingUtilities.invokeLater(new Runnable() {	public void run() {
@@ -333,7 +369,7 @@ protected void Iniciar(){
     }});}
     @Override public void fingerGone(final DPFPSensorEvent e) {
     SwingUtilities.invokeLater(new Runnable() {	public void run() {
-    EnviarTexto("El dedo ha sido quitado del Lector de Huella");
+    //EnviarTexto("El dedo ha sido quitado del Lector de Huella");
     }});}
    });
 
@@ -367,7 +403,7 @@ protected void Iniciar(){
     stop();
     start();
      }catch (DPFPImageQualityException ex) {
-     System.err.println("Error --> correr en circulos");
+     System.err.println("Error");
      }
 }
  public  DPFPFeatureSet extraerCaracteristicas(DPFPSample sample, DPFPDataPurpose purpose){
@@ -393,7 +429,7 @@ protected void Iniciar(){
 	firePropertyChange(TEMPLATE_PROPERTY, old, template);
     }
 public void EnviarTexto(String string) {
-        Notificaciones.append(string + "\n");
+        Notificaciones.setText(string + "\n");
 }
 
 public  void stop(){
@@ -449,11 +485,17 @@ ConexionBD con=new ConexionBD();
        }
        }
        //Si no encuentra alguna huella correspondiente al nombre lo indica con un mensaje
-       JOptionPane.showMessageDialog(null, "No existe ningún registro que coincida con la huella", "Verificacion de Huella", JOptionPane.ERROR_MESSAGE);
+       Notificaciones.setText("No existe un registro que coincida con la huella actual\n"
+               + "Repita la operacion, revise que su huella no este maltratada");
+       jTable1.setValueAt( "---" ,0 ,0);
+       jTable1.setValueAt( "---" ,0 ,1);
+       jTable1.setValueAt( "---" ,0 ,2);
+       jTable1.setValueAt( "---" ,0 ,3);
+       jTable1.setValueAt( "---" ,0 ,4);
        setTemplate(null);
        } catch (SQLException e) {
        //Si ocurre un error lo indica en la consola
-       System.err.println("Error al identificar huella dactilar."+e.getMessage());
+       //System.err.println("Error al identificar huella dactilar."+e.getMessage());
        }finally{
        con.desconectar();
        }
@@ -465,8 +507,8 @@ ConexionBD con=new ConexionBD();
      Date dias = new Date(); //consultamos en que dia nos encontramos;
      SimpleDateFormat dtdia=new SimpleDateFormat("EEEE");
      String fechaaa=dtdia.format(dias);
-     String diain="elunes";//modificamoes esta parte
-     String diaout="slunes";
+     String diain="e"+fechaaa;//modificamoes esta parte
+     String diaout="s"+fechaaa;
      //------------------------------------------------------------
      try {
                 PreparedStatement consultah = ch.prepareStatement("SELECT *FROM horario where clave_trabajador=?");
@@ -474,12 +516,12 @@ ConexionBD con=new ConexionBD();
                 ResultSet res = consultah.executeQuery();
                 while (res.next()) {
                 //si se encuentran datos lo insertamos en la tabla
-                    String edia=res.getString(diain);
+                    String edia=res.getString(diain);//extraemos la hora de entrada
                     String sdia=res.getString(diaout);
 
-                    Date hora=new Date();
+                    Date hora=new Date();//creamos la hora actual
                     SimpleDateFormat dt = new SimpleDateFormat("HH:mm");
-                    String horatabla=sdia;
+                    String horatabla=edia;
                 try {
                     Date htabla = dt.parse(horatabla);
                 } catch (ParseException ex) {
@@ -489,55 +531,64 @@ ConexionBD con=new ConexionBD();
                 try {
                     htabla = dt.parse(horatabla);
                     hora1=dt.format(htabla);
-                    System.err.println(hora1);//conversion a tipo date de la horas de entrada en el horario
+                    //System.err.println(hora1);//conversion a tipo date de la horas de entrada en el horario
                 } catch (ParseException ex) {
                     Logger.getLogger(RegEntradaSalida.class.getName()).log(Level.SEVERE, null, ex);
                 }
                     String hora2=dt.format(hora);//hora actual de entrada
-                    System.err.println(hora2);
-                    //convertir las horas a entero para compararlas 
+                    
+                    //convertir las horas a entero para compararlas
+
                     hactual=Integer.parseInt(hora2.substring(0, 2));
                     hbase=Integer.parseInt(hora1.substring(0, 2));
-                    //mactual=
-                    System.err.println(hactual+hbase);
-                    //hbase=
-                    //mbase=
+
+                    mactual=Integer.parseInt(hora2.substring(3, 5));
+                    mbase=Integer.parseInt(hora1.substring(3, 5));
+
+                    //System.err.println(hactual+" "+hbase+" minutos "+mactual+" "+mbase);
+                    int horaminutos_entrada=(hbase*60)+mbase,horaminutos_actual=(hactual*60)+mactual;//convertimos todo a minutos para que sea facil la comparacion
+                    //System.err.println("minutos actual "+horaminutos_actual);
+                    //System.err.println("minutos entrada "+horaminutos_entrada);
+                    Date fecha=new Date();
+                    SimpleDateFormat fech = new SimpleDateFormat("dd/MM/yyyy");//creamos la fecha actual que se guardara en la base de datos
+                    String fechaa=fech.format(fecha);
+
+                    if(horaminutos_entrada<horaminutos_actual){//si tiempo de entrada es menor que tiempo actual
+                    jTable1.setValueAt( "Entrada",0 ,3);//retardo
+                    jTable1.setValueAt( "Retardo" ,0 ,4);
+                    Notificaciones.setText("Asistencia registrada\n"
+                            + "Procure llegar mas temprano");
+                    PreparedStatement insertar = ch.prepareStatement("insert into historial(clave_trabajador,fecha,estado) values('"+clave+"','"+fechaa+"','Retardo');");
+                    insertar.executeQuery();
+                     
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    jTable1.setValueAt( edia,0 ,3);
-                    jTable1.setValueAt( sdia ,0 ,4);
-                    
-                    
-                                    }
+
+                                   }
+                    else{
+                    jTable1.setValueAt( "Entrada",0 ,3);
+                    jTable1.setValueAt( "Normal" ,0 ,4);
+                    Notificaciones.setText("Asistencia registrada\n");
+                    PreparedStatement insertar = ch.prepareStatement("insert into historial(clave_trabajador,fecha,estado) values('"+clave+"','"+fechaa+"','Normal');");
+                    insertar.executeQuery();
+                                        }
+                     }
             } catch (SQLException ex) {
-                System.err.println("Error al identificar huella dactilar."+ex.getMessage());
+                PreparedStatement actualiza_asistencia;
+            try {
+                actualiza_asistencia = ch.prepareStatement("UPDATE personal SET asistencia=true WHERE clave='" + clave + "';");
+                actualiza_asistencia.executeQuery();
+            } catch (SQLException ex1) {
+                //Logger.getLogger(RegEntradaSalida.class.getName()).log(Level.SEVERE, null, ex1);
+            }             
             }
      //----------------------------------------------------------------
-
-
-
-
-
-
   con.desconectar();
     }
-
-
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField FechaActual;
     private javax.swing.JFormattedTextField HoraActual;
     private javax.swing.JTextArea Notificaciones;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -547,7 +598,6 @@ ConexionBD con=new ConexionBD();
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblImagenHuella;
-    private javax.swing.JButton logo;
     // End of variables declaration//GEN-END:variables
 
 }

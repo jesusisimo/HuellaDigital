@@ -11,6 +11,14 @@
 
 package formularios;
 
+import BD.ConexionBD;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import org.apache.commons.codec.digest.DigestUtils;
+
 /**
  *
  * @author jesus
@@ -55,32 +63,53 @@ public class AdminPanel extends javax.swing.JFrame {
         btnModificar = new javax.swing.JButton();
         btnCancelarAdm = new javax.swing.JButton();
         btnConsultar = new javax.swing.JButton();
+        btnReporte = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("ADMINISTRADOR");
 
+        btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Lock.png"))); // NOI18N
         btnIngresar.setText("Ingresar");
+        btnIngresar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnIngresarMouseMoved(evt);
+            }
+        });
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);
             }
         });
 
-        btnRegistrar.setText("Registrar");
+        btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Add.png"))); // NOI18N
+        btnRegistrar.setText("Registrar Administrador");
+        btnRegistrar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnRegistrarMouseMoved(evt);
+            }
+        });
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarActionPerformed(evt);
             }
         });
 
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Back.png"))); // NOI18N
         btnRegresar.setText("Regresar");
+        btnRegresar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnRegresarMouseMoved(evt);
+            }
+        });
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarActionPerformed(evt);
             }
         });
 
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Close.png"))); // NOI18N
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,45 +121,50 @@ public class AdminPanel extends javax.swing.JFrame {
         panelInicial.setLayout(panelInicialLayout);
         panelInicialLayout.setHorizontalGroup(
             panelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInicialLayout.createSequentialGroup()
-                .addContainerGap(105, Short.MAX_VALUE)
+            .addGroup(panelInicialLayout.createSequentialGroup()
+                .addContainerGap(99, Short.MAX_VALUE)
                 .addGroup(panelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInicialLayout.createSequentialGroup()
                         .addComponent(btnRegresar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInicialLayout.createSequentialGroup()
-                        .addGroup(panelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnIngresar)
-                            .addComponent(btnRegistrar))
-                        .addGap(57, 57, 57)))
-                .addGap(91, 91, 91))
+                        .addComponent(btnIngresar)
+                        .addGap(136, 136, 136))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInicialLayout.createSequentialGroup()
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(91, 91, 91))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInicialLayout.createSequentialGroup()
+                            .addComponent(btnRegistrar)
+                            .addGap(107, 107, 107)))))
         );
         panelInicialLayout.setVerticalGroup(
             panelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInicialLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1)
-                .addGap(58, 58, 58)
+                .addGap(44, 44, 44)
                 .addComponent(btnIngresar)
-                .addGap(39, 39, 39)
+                .addGap(32, 32, 32)
                 .addComponent(btnRegistrar)
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addGroup(panelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRegresar)
-                    .addComponent(btnSalir))
-                .addContainerGap(64, Short.MAX_VALUE))
+                    .addComponent(btnSalir)
+                    .addComponent(btnRegresar))
+                .addContainerGap())
         );
 
-        panelInicial.setBounds(0, 0, 400, 300);
+        panelInicial.setBounds(0, 0, 400, 350);
         jLayeredPane1.add(panelInicial, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel2.setText("INGRESAR ADMINISTRADOR");
+        jLabel2.setText("INICIAR SESION");
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/User.png"))); // NOI18N
         jLabel3.setText("Nombre");
 
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Key.png"))); // NOI18N
         jLabel4.setText("Contraseña");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -139,13 +173,15 @@ public class AdminPanel extends javax.swing.JFrame {
             }
         });
 
-        btnAceptar.setText("Aceptar");
+        btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Forward.png"))); // NOI18N
+        btnAceptar.setText("Ingresar");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAceptarActionPerformed(evt);
             }
         });
 
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Stop.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,80 +194,122 @@ public class AdminPanel extends javax.swing.JFrame {
         panelIngresoLayout.setHorizontalGroup(
             panelIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelIngresoLayout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addGroup(panelIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(btnAceptar)
-                    .addComponent(jLabel4))
-                .addGap(67, 67, 67)
-                .addGroup(panelIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField1)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
-                    .addComponent(btnCancelar))
-                .addContainerGap(44, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelIngresoLayout.createSequentialGroup()
-                .addContainerGap(143, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96))
+                .addContainerGap(38, Short.MAX_VALUE)
+                .addGroup(panelIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelIngresoLayout.createSequentialGroup()
+                        .addGroup(panelIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(jTextField1)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelIngresoLayout.createSequentialGroup()
+                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(66, 66, 66))
         );
         panelIngresoLayout.setVerticalGroup(
             panelIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelIngresoLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(45, 45, 45)
                 .addComponent(jLabel2)
-                .addGap(46, 46, 46)
+                .addGap(45, 45, 45)
                 .addGroup(panelIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(panelIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                    .addComponent(jLabel4)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(67, 67, 67)
                 .addGroup(panelIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAceptar)
-                    .addComponent(btnCancelar))
-                .addGap(44, 44, 44))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnAceptar))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        panelIngreso.setBounds(0, 0, 400, 300);
+        panelIngreso.setBounds(0, 0, 400, 320);
         jLayeredPane1.add(panelIngreso, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel5.setText("ADMINISTRADOR");
+        panelAdmin.setMinimumSize(new java.awt.Dimension(400, 300));
+        panelAdmin.setPreferredSize(new java.awt.Dimension(400, 300));
 
-        btnAltas.setText("Altas");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setText("MENÚ");
+
+        btnAltas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Add.png"))); // NOI18N
+        btnAltas.setText("Registrar personal");
+        btnAltas.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnAltasMouseMoved(evt);
+            }
+        });
         btnAltas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAltasActionPerformed(evt);
             }
         });
 
-        btnBajas.setText("Bajas");
+        btnBajas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Stop.png"))); // NOI18N
+        btnBajas.setText("Borrar personal");
+        btnBajas.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnBajasMouseMoved(evt);
+            }
+        });
         btnBajas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBajasActionPerformed(evt);
             }
         });
 
-        btnModificar.setText("Modificaciones");
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Edit.png"))); // NOI18N
+        btnModificar.setText("Modificaciones personal");
+        btnModificar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnModificarMouseMoved(evt);
+            }
+        });
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
             }
         });
 
-        btnCancelarAdm.setText("Cerrar");
+        btnCancelarAdm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Close.png"))); // NOI18N
+        btnCancelarAdm.setText("Cerrar Sesion");
         btnCancelarAdm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarAdmActionPerformed(evt);
             }
         });
 
+        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Info.png"))); // NOI18N
         btnConsultar.setText("Mostrar personal regitrados");
+        btnConsultar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnConsultarMouseMoved(evt);
+            }
+        });
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsultarActionPerformed(evt);
+            }
+        });
+
+        btnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Portfolio.png"))); // NOI18N
+        btnReporte.setText("Crear reporte en excel");
+        btnReporte.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnReporteMouseMoved(evt);
+            }
+        });
+        btnReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteActionPerformed(evt);
             }
         });
 
@@ -240,41 +318,43 @@ public class AdminPanel extends javax.swing.JFrame {
         panelAdminLayout.setHorizontalGroup(
             panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAdminLayout.createSequentialGroup()
-                .addContainerGap(160, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(157, 157, 157))
+                .addGap(72, 72, 72)
+                .addGroup(panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnReporte, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                    .addComponent(btnConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                    .addComponent(btnBajas, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                    .addComponent(btnAltas, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
+                .addGap(51, 51, 51))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAdminLayout.createSequentialGroup()
-                .addContainerGap(163, Short.MAX_VALUE)
+                .addContainerGap(140, Short.MAX_VALUE)
                 .addComponent(btnCancelarAdm)
-                .addGap(176, 176, 176))
+                .addGap(127, 127, 127))
             .addGroup(panelAdminLayout.createSequentialGroup()
-                .addGap(121, 121, 121)
-                .addGroup(panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnConsultar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                    .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                    .addComponent(btnBajas, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                    .addComponent(btnAltas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
-                .addGap(115, 115, 115))
+                .addGap(175, 175, 175)
+                .addComponent(jLabel5)
+                .addContainerGap(171, Short.MAX_VALUE))
         );
         panelAdminLayout.setVerticalGroup(
             panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAdminLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel5)
-                .addGap(40, 40, 40)
-                .addComponent(btnAltas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnBajas)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(btnAltas)
+                .addGap(18, 18, 18)
+                .addComponent(btnBajas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnModificar)
-                .addGap(28, 28, 28)
+                .addGap(13, 13, 13)
                 .addComponent(btnConsultar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnReporte)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(btnCancelarAdm)
-                .addGap(21, 21, 21))
+                .addContainerGap())
         );
 
-        panelAdmin.setBounds(0, 0, 402, 300);
+        panelAdmin.setBounds(0, 0, 400, 390);
         jLayeredPane1.add(panelAdmin, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -285,7 +365,7 @@ public class AdminPanel extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
         );
 
         pack();
@@ -311,14 +391,40 @@ public class AdminPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
         panelInicial.setVisible(false);
         panelIngreso.setVisible(true);
+        jTextField1.setText(null);
+        jPasswordField1.setText(null);
     }//GEN-LAST:event_btnIngresarActionPerformed
-
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         // TODO add your handling code here:
+
+Connection c=con.conectar(); //establece la conexion con la BD
+        try{
+            String usuario=jTextField1.getText();
+            String contraseña=jPasswordField1.getText();
+            PreparedStatement verificarStmt = c.prepareStatement("SELECT contrasenia FROM administrador where nombre='"+usuario+"'");
+    ResultSet rs = verificarStmt.executeQuery();
+
+    if (rs.next()){
+        String contraseña_encriptada=DigestUtils.md5Hex(contraseña);
+        String contrasenia= rs.getString("contrasenia");
+        if(contraseña_encriptada.equals(contrasenia)){
         panelIngreso.setVisible(false);
         panelAdmin.setVisible(true);
+        }
+        else{
+        JOptionPane.showMessageDialog(null,"Los campos no coinciden");
+        }
+    }
+        }catch (SQLException e) {
+                    //Si ocurre un error lo indica en la consola
+                System.err.println("Error al guardar los datos del administrador.");
+                }finally{
+                con.desconectar();
+
+                }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
+    ConexionBD con=new ConexionBD();
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         panelIngreso.setVisible(false);
@@ -361,6 +467,52 @@ public class AdminPanel extends javax.swing.JFrame {
         form.setVisible(true);
     }//GEN-LAST:event_btnConsultarActionPerformed
 
+    private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
+        // TODO add your handling code here:
+        Reporte form = new Reporte();
+        form.setVisible(true);
+    }//GEN-LAST:event_btnReporteActionPerformed
+
+    private void btnAltasMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAltasMouseMoved
+     btnAltas.setToolTipText("Crea un nuevo personal y lo agrega al sistema");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAltasMouseMoved
+
+    private void btnBajasMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBajasMouseMoved
+        // TODO add your handling code here:
+        btnBajas.setToolTipText("Borrar personal del sistema");
+    }//GEN-LAST:event_btnBajasMouseMoved
+
+    private void btnModificarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseMoved
+        // TODO add your handling code here:
+        btnModificar.setToolTipText("Cambia los datos del personal y los guarda");
+    }//GEN-LAST:event_btnModificarMouseMoved
+
+    private void btnConsultarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultarMouseMoved
+        // TODO add your handling code here:
+        btnConsultar.setToolTipText("Crea una lista de todo el personal registrado");
+    }//GEN-LAST:event_btnConsultarMouseMoved
+
+    private void btnReporteMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteMouseMoved
+        // TODO add your handling code here:
+        btnReporte.setToolTipText("Crea un reporte de todo el personal");
+    }//GEN-LAST:event_btnReporteMouseMoved
+
+    private void btnIngresarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseMoved
+        // TODO add your handling code here:
+        btnIngresar.setToolTipText("Ingresa como administrador");
+    }//GEN-LAST:event_btnIngresarMouseMoved
+
+    private void btnRegistrarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseMoved
+        // TODO add your handling code here:
+        btnRegistrar.setToolTipText("Registra un nuevo administrador");
+    }//GEN-LAST:event_btnRegistrarMouseMoved
+
+    private void btnRegresarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseMoved
+        // TODO add your handling code here:
+        btnRegresar.setToolTipText("Volver al menú anterior");
+    }//GEN-LAST:event_btnRegresarMouseMoved
+
     /**
     * @param args the command line arguments
     */
@@ -383,6 +535,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnReporte;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -273,13 +273,14 @@ public class RegistroHorario extends javax.swing.JFrame {
      java.sql.Statement stmt = c.createStatement();//-insercion delusuario a la base de datos
      String clave = JOptionPane.showInputDialog("ingresa la clave del trabajador");
      //stmt.executeQuery("INSERT INTO personal(nombre, huella, clave, appaterno, apmaterno, telefono, direccion, sexo) values('"+nombre+"','"+null+"','"+clave+"','"+appaterno+"','"+apmaterno+"','"+telefono+"','"+direccion+"','"+sexo+"');");
-     stmt.executeQuery("INSERT INTO horario(clave_trabajador,elunes,emartes,emiércoles,ejueves,eviernes,slunes,smartes,smiércoles,sjueves,sviernes) values('"+clave+"','"+elunes+"','"+emartes+"','"+emiercoles+"','"+ejueves+"','"+eviernes+"','"+slunes+"','"+smartes+"','"+smiercoles+"','"+sjueves+"','"+sviernes+"');");
+     stmt.executeQuery("INSERT INTO horario(clave_trabajador,elunes,emartes,emiercoles,ejueves,eviernes,slunes,smartes,smiercoles,sjueves,sviernes) values('"+clave+"','"+elunes+"','"+emartes+"','"+emiercoles+"','"+ejueves+"','"+eviernes+"','"+slunes+"','"+smartes+"','"+smiercoles+"','"+sjueves+"','"+sviernes+"');");
      stmt.execute("END");
      stmt.close();
      JOptionPane.showMessageDialog(null,"Datos del personal guardados");
      con.desconectar();
           } catch (SQLException ex) {
      //Si ocurre un error lo indica en la consola
+              //JOptionPane.showMessageDialog(null,"No se guardaron datos");
     
      }finally{
      con.desconectar();
