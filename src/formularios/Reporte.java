@@ -156,7 +156,6 @@ public class Reporte extends javax.swing.JFrame {
                 //creacion del reporte en exel
                 int fil=1;
                 int cel=0;
-
                 do{
                     String clavet=rs.getString("clave_trabajador");
                     HSSFSheet hoja = libro.createSheet("Reporte de "+rs.getString("clave_trabajador"));//creamos una hoja
@@ -165,8 +164,7 @@ public class Reporte extends javax.swing.JFrame {
                     HSSFCell celda = fila.createCell(0);//creamos una celda
                     HSSFRichTextString texto = new HSSFRichTextString("CENTRO DE BACHILLERATO AGROPECUARIO No 77");
                     celda.setCellValue(texto);
-                    
-
+ 
                     fila = hoja.createRow(fil);//creamos la primera fila
                     
                     celda = fila.createCell(0);//creamos una celda
@@ -233,7 +231,7 @@ public class Reporte extends javax.swing.JFrame {
                     e.printStackTrace();
                 }
             } else {
-                System.err.println("No se encontraron registros con esta clave.");
+                 mensajes.setText("No existe historial de ningun trabajador");
             }
         } catch (SQLException e) {
             //Si ocurre un error lo indica en la consola

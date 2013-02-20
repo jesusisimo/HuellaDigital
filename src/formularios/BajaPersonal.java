@@ -241,6 +241,8 @@ public class BajaPersonal extends javax.swing.JFrame {
     verificarStmt.setString(1,C_clave);
     verificarStmt.executeQuery();
     } catch (SQLException e) {
+        paneldeInformacion.setText("Personal eliminado correctamente");
+     campoClave.setText(null);
     }finally{
        con.desconectar();
     }

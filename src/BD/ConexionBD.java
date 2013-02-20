@@ -23,7 +23,7 @@ public Connection conectar(){
     conn = DriverManager.getConnection(ruta+servidor+db,user,pass);
 
     if (conn!=null){
-    System.out.println("Conección a base de datos listo...");
+    //System.out.println("Conección a base de datos listo...");
     }
     else if (conn==null)
     {
@@ -41,6 +41,6 @@ public Connection conectar(){
 }
 public void desconectar(){
     conn = null;
-    System.out.println("Desconexion a base de datos listo...");
+    //System.out.println("Desconexion a base de datos listo...");
 }
 }
