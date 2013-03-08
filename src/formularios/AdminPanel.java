@@ -67,7 +67,7 @@ public class AdminPanel extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18));
         jLabel1.setText("ADMINISTRADOR");
 
         btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Lock.png"))); // NOI18N
@@ -237,7 +237,7 @@ public class AdminPanel extends javax.swing.JFrame {
         panelAdmin.setMinimumSize(new java.awt.Dimension(400, 300));
         panelAdmin.setPreferredSize(new java.awt.Dimension(400, 300));
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18));
         jLabel5.setText("MENÚ");
 
         btnAltas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Add.png"))); // NOI18N
@@ -349,7 +349,7 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addComponent(btnConsultar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnReporte)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCancelarAdm)
                 .addContainerGap())
         );

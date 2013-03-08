@@ -2,7 +2,6 @@ package formularios;
 import BD.ConexionBD;
 import java.sql.Connection;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import org.apache.commons.codec.digest.DigestUtils;
 import validaciones.Validaciones;
 /*
